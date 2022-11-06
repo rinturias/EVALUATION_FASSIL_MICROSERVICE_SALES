@@ -17,8 +17,8 @@ namespace Sharedkernel.IntegrationEvents
         public decimal discount { get; set; }
 
         public decimal iva { get; set; }
-
-        //public ICollection<DetailSale> _detalleSale { get; set; }
+        public string status { get; set; }
+        public List<DetailSale> detalleSale { get; set; }
     }
 
     public class DetailSale
@@ -30,5 +30,6 @@ namespace Sharedkernel.IntegrationEvents
         public Guid productId { get; set; }
 
         public Guid saleId { get; set; }
+        public Guid categoryId { get; set; }
     }
 }

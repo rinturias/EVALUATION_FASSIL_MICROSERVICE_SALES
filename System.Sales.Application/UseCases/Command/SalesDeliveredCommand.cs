@@ -14,12 +14,12 @@ namespace System.Sales.Application.UseCases.Command
     public class SalesDeliveredCommand : IRequest<ResulService>
     {
         public RequestSaleDelivered DetailDelivered { get; set; }
-        [JsonConstructor]
+
         public SalesDeliveredCommand(RequestSaleDelivered detail)
         {
             DetailDelivered = detail;
         }
-        [JsonConstructor]
+     
         private SalesDeliveredCommand() { }
     }
 }

@@ -21,7 +21,27 @@ namespace System.Sales.Application.UseCases.DomainEventHandler
             _publishEndpoint = publishEndpoint;
         }
         public async Task Handle(ConfirmedDomainEvent<SaleMade> notification, CancellationToken cancellationToken)
+
+
         {
+            var detailVenta = new List<DetailSale>();
+
+            foreach (var item in notification.DomainEvent.saleMade.DetalleSale)
+            {
+                var obj = new DetailSale()
+                {
+                    date = item.date,
+                    price = item.price,
+                    saleId = item.saleId,
+                    productId  = item.productId,
+                    quantity=   item.quantity,
+                    
+                };
+                detailVenta.Add(obj);
+            }
+
+
+
             SaleRegister evento = new SaleRegister()
             {
                 date = notification.DomainEvent.saleMade.date,
@@ -31,7 +51,10 @@ namespace System.Sales.Application.UseCases.DomainEventHandler
                 amountTotal = notification.DomainEvent.saleMade.amountTotal,
                 amountNominal = notification.DomainEvent.saleMade.amountNominal,
                 discount = notification.DomainEvent.saleMade.discount,
-                iva = notification.DomainEvent.saleMade.iva
+                iva = notification.DomainEvent.saleMade.iva,
+                status=notification.DomainEvent.saleMade.status,
+
+                detalleSale= detailVenta
             };
             await _publishEndpoint.Publish<Sharedkernel.IntegrationEvents.SaleRegister>(evento);
         }
